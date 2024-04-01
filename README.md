@@ -35,6 +35,8 @@ After installing, the font of the terminal has to be changed to one of the nerd 
 Ctrl + Shift + ,
 ``` 
 this should open the settings.json, add the font setting as shown in the image: (if you don't know the name of the font, you can view it in word)
+
+
 ![](resources/NVChadIcon.png)
 
 
