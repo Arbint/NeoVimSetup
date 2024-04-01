@@ -54,7 +54,7 @@ TSInstall <language>
 ```
 for example, to install C++:
 ```
-TSInstall c++
+TSInstall cpp
 ```
 
 
