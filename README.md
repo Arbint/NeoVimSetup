@@ -24,8 +24,35 @@ this should fire up nvim, and automatically start runing the setup defined in Nv
 ```
 :MasonInstallAll
 ```
+## NvChad Icon
+to make icons apear properly, a nerd font is needed, you can download them here:
+https://www.nerdfonts.com/font-downloads
+
+Right click on the downloaded font, and select install.
+
+After installing, the font of the terminal has to be changed to one of the nerd font, you can do it by open the terminal, and press key combination
+```
+Ctrl + Shift + ,
+``` 
+this should open the settings.json, add the font setting as shown in the image: (if you don't know the name of the font, you can view it in word)
+![](resources/NVChadIcon.png)
+
 
 ## NvChad Auto Completetion
 
+neovim with nvchad uses nvim-treesitter to add auto completion.
+
+to check what is avalaible for auto completion, in vim commands, type in:
+```
+:TSInstallInfo
+```
+and to install any auto completion support, type in:
+```
+TSInstall <language>
+```
+for example, to install C++:
+```
+TSInstall c++
+```
 
 
