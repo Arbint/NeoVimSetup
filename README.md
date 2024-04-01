@@ -6,7 +6,7 @@ https://github.com/neovim/neovim/blob/master/INSTALL.md
 I recommend to use Winget or Chocolatey.
 
 ## Instal NvChad
-NvChad is a plugin boundle and manager.
+NvChad is a plugin bundle and manager.
 
 https://nvchad.com/docs/quickstart/install/
 
