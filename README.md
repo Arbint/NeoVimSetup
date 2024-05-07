@@ -117,27 +117,7 @@ this should also be achieved by adding this to ~/AppData/Local/nvim/plugins/init
 unfortunately, tree sitter conflicts with clangd's autocompletion signature help provider, so we can toggle it off in ~AppData/Local/nvim/configs/lspconfig.lua:
 ![](resources/clandNoConflict.png)
 
-after adding clangd, we need to add coc.vim wich is Conquer of Completion, it is a host of language servers.
-open terminal and go to: 
-```
- cd ~/AppData/Local/nvim/lua/plugins/
-```
-and open init.lua:
-```
-nvim init.lua
-```
-here is where we put plugins, to add coc, add another entry as shown in the image
-![](resources/CocPluginConfig.png)
-this adds https://github.com/neoclide/coc.nvim as one of the plugins.
 
-save the file, restart nvim, and lazy.vim should install it for you.
 
-finally, to start using clangd with coc.vim, open
-```
-~AppData/Local/nvim/init.lua
-```
-and add the following lua code to the back:
-```
-require('lspconfig').clangd.setup{}
-```
-test with a c++ file, and the auto completion and error checking should work.
+# Debugging
+* Debugging is still not working yet, need to look into DAP, LLDB, DAP-UI, and how the work
