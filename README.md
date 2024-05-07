@@ -88,7 +88,7 @@ https://nvchad.com/docs/quickstart/post-install
 
 ## Auto Completion C++
 
-to be able to debug and give correct hit for a language, a language server is needed. we can install one of these for c++, clangd, we can do that with in nvim command:
+to be able to debug and give correct hint for a language, a language server is needed. we can install one of these for c++, clangd, we can do that with in nvim command:
 ```
 :MasonInstall clangd
 ```
@@ -112,6 +112,10 @@ for example, to install C++:
 ```
 TSInstall cpp
 ```
+this should also be achieved by adding this to ~/AppData/Local/nvim/plugins/init.lua:
+![](resources/treeSitterCpp.png)
+unfortunately, tree sitter conflicts with clangd's autocompletion signature help provider, so we can toggle it off in ~AppData/Local/nvim/configs/lspconfig.lua:
+![](resources/clandNoConflict.png)
 
 after adding clangd, we need to add coc.vim wich is Conquer of Completion, it is a host of language servers.
 open terminal and go to: 
