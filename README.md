@@ -86,23 +86,7 @@ NvChad uses Lua to configure it self, know more about what to do with NvChad and
 
 https://nvchad.com/docs/quickstart/post-install
 
-## NvChad Auto Completetion
-
-neovim with nvchad uses nvim-treesitter to add auto completion.
-
-to check what is avalaible for auto completion, in vim commands, type in:
-```
-:TSInstallInfo
-```
-and to install any auto completion support, type in:
-```
-TSInstall <language>
-```
-for example, to install C++:
-```
-TSInstall cpp
-```
-## Debugging C++
+## Auto Completion C++
 
 to be able to debug and give correct hit for a language, a language server is needed. we can install one of these for c++, clangd, we can do that with in nvim command:
 ```
@@ -111,6 +95,23 @@ to be able to debug and give correct hit for a language, a language server is ne
 this should also be achieve by adding this to ~/AppData/Local/nvim/plugins/init.lua
 
 ![](resources/clangdInstallByConfig.png)
+
+## Better Parsering Syntax Highlighting 
+
+neovim with nvchad shipped with nvim-treesitter to do Parser and syntax highlighting.
+
+to check what is avaliable, in vim commands, type in:
+```
+:TSInstallInfo
+```
+and to install any, type in:
+```
+TSInstall <language>
+```
+for example, to install C++:
+```
+TSInstall cpp
+```
 
 after adding clangd, we need to add coc.vim wich is Conquer of Completion, it is a host of language servers.
 open terminal and go to: 
