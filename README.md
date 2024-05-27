@@ -47,7 +47,7 @@ this should fire up nvim, and automatically start runing the setup defined in Nv
 
 https://github.com/folke/lazy.nvim
 
-when Lazy..vim fished it's job, in nvim command, type in:
+when Lazy.vim fished it's job, in nvim command, type in:
 ```
 :MasonInstallAll
 ```
@@ -199,8 +199,8 @@ lspconfig.clangd.setup{
   capabilities = capabilities
 }
 ```
-## CMake Auto Completion:
-To make cmake auto completion work, you will need to build it with Ninja to generate a compile-command.json file, lsp needs it to find includes. in your ```CMakeLists.txt``` add this line:
+## CMake Project Mutiple File Auto Completion:
+To make a cmake project auto completion work, you will need to build it with Ninja to generate a compile-command.json file, lsp needs it to find includes. in your ```CMakeLists.txt``` add this line:
 ```cmake
 set(CMAKE_EXPORT_COMPILE_COMMANDS         ON)
 ```
