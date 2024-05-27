@@ -212,7 +212,29 @@ set(CMAKE_CXX_EXTENSIONS                 OFF)
 #put in here:
 set(CMAKE_EXPORT_COMPILE_COMMANDS         ON)
 ```
-when configuring the cmake file, make sure to use the ```x64 Native Tools Command Prompt for VS 2022``` as the command prompt, serach for it in the start menu, and launch it:
+Only Ninja can create the compile-command.json file, not the visual studio generator, to download the Ninja build system(Generator): https://github.com/ninja-build/ninja/releases
+
+unzip it to ```C:/Ninja```:
+
+<img src="resources/NinjaDirectory.png" width=500>
+
+(This image shows the build-from-source Ninja, so it has addtional files, yours should have just ```ninja.exe``` in ```C:/Ninja/```)
+Add add ```C:/Ninja``` to the system path. one way to do it in the powershell is:
+```
+$path = [Environment]::GetEnvironmentVariable("PATH", "User")
+```
+add the new path:
+```
+$newPath = "$path;C:\Ninja"
+```
+
+and then:
+
+```
+[Environment]::SetEnvironmentVariable("PATH", $newPath, "User")
+```
+
+When configuring the cmake file, make sure to use the ```x64 Native Tools Command Prompt for VS 2022``` as the command prompt, it will provide environment varibles, paths to find cl(the visual studio compiler we will use) and it's dependencies. search for it in the start menu, and launch it:
 
 <img src="resources/cmakeCmd.png" width=500>
 
