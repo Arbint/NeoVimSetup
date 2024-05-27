@@ -92,7 +92,7 @@ to be able to debug and give correct hint for a language, a language server is n
 ```
 :MasonInstall clangd
 ```
-this should also be achieve by adding this to ~/AppData/Local/nvim/plugins/init.lua
+this should also be achieve by adding this to ```~/AppData/Local/nvim/plugins/init.lua```
 
 ![](resources/clangdInstallByConfig.png)
 
@@ -116,12 +116,116 @@ for example, to install C++:
 ```
 TSInstall cpp
 ```
-this should also be achieved by adding this to ~/AppData/Local/nvim/plugins/init.lua:
+this should also be achieved by adding this to ```~/AppData/Local/nvim/plugins/init.lua```:
 ![](resources/treeSitterCpp.png)
 unfortunately, tree sitter conflicts with clangd's autocompletion signature help provider, so we can toggle it off in ~AppData/Local/nvim/configs/lspconfig.lua:
 ![](resources/clandNoConflict.png)
 
+At the point, the ```~/AppData/Local/nvim/lua/plugins/init.lua``` should look like this:
+```lua
+return {
+  {
+    "stevearc/conform.nvim",
+    -- event = 'BufWritePre', -- uncomment for format on save
+    config = function()
+      require "configs.conform"
+    end,
+  },
 
+  -- These are some examples, uncomment them if you want to see them work!
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("nvchad.configs.lspconfig").defaults()
+      require "configs.lspconfig"
+    end,
+  },
+  --
+  {
+  	"williamboman/mason.nvim",
+  	opts = {
+  		ensure_installed = {
+  			"lua-language-server", "stylua",
+  			"html-lsp", "css-lsp" , "prettier", "clangd", "codelldb"
+  		},
+  	},
+  },
+  --
+  {
+  	"nvim-treesitter/nvim-treesitter",
+  	opts = {
+  		ensure_installed = {
+  			"vim", "lua", "vimdoc",
+       "html", "css", "cpp"
+  		},
+  	},
+  },
+}
+```
+and the ```~/AppData/Local/nvim/lua/config/lspconfig.lua``` should look like this:
+```lua
+-- EXAMPLE 
+local on_attach = require("nvchad.configs.lspconfig").on_attach
+local on_init = require("nvchad.configs.lspconfig").on_init
+local capabilities = require("nvchad.configs.lspconfig").capabilities
+
+local lspconfig = require "lspconfig"
+local servers = { "html", "cssls" }
+
+-- lsps with default config
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+  }
+end
+
+-- typescript
+lspconfig.tsserver.setup {
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+}
+
+
+-- clangd -- needed to make it work ok with treesitter
+lspconfig.clangd.setup{
+  on_attach = function(client, bufnr)
+    client.server_capabilities.signatureHelpPrivider = false
+    on_attach(client, bufnr)
+  end,
+
+  capabilities = capabilities
+}
+```
+## CMake Auto Completion:
+To make cmake auto completion work, you will need to build it with Ninja to generate a compile-command.json file, lsp needs it to find includes. in your ```CMakeLists.txt``` add this line:
+```cmake
+set(CMAKE_EXPORT_COMPILE_COMMANDS         ON)
+```
+it should be placed after:
+```cmake
+set(CMAKE_CXX_STANDARD                    17)
+set(CMAKE_CXX_STANDARD_REQUIRED           ON)
+set(CMAKE_CXX_EXTENSIONS                 OFF)
+#put in here:
+set(CMAKE_EXPORT_COMPILE_COMMANDS         ON)
+```
+when configuring the cmake file, make sure to use the ```x64 Native Tools Command Prompt for VS 2022``` as the command prompt, serach for it in the start menu, and launch it:
+
+<img src="resources/cmakeCmd.png" width=500>
+
+In the opened command prompt, navigate to the project directory, then use the following to tell cmake to use the cl compiler, which is the one visual studio uses, and the generator is Ninja
+
+```cmake -S . -B build -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -G Ninja```
+
+This will create a ```compile_commands.json``` file in the build folder, to make clangd use it, create a ```.clangd``` file in the root directory of the project, and add in the following line:
+```
+CompileFlags:
+  CompilationDatabase: "build"
+```
+This tells clangd, which is our LSP, to use the ```compile_commands.json``` file in the build folder to find includes and other auto completion infomation.
 
 # Debugging
-* Debugging is still not working yet, need to look into DAP, LLDB, DAP-UI, and how the work
+* Debugging is still not working yet, need to look into DAP, LLDB, DAP-UI, and how they work.
