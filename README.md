@@ -96,6 +96,10 @@ this should also be achieve by adding this to ~/AppData/Local/nvim/plugins/init.
 
 ![](resources/clangdInstallByConfig.png)
 
+You will also need to enable the lsp by uncommenting this:
+
+![](resources/enableLsp.png)
+
 ## Better Parsering Syntax Highlighting 
 
 neovim with nvchad shipped with nvim-treesitter to do Parser and syntax highlighting.
